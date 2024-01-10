@@ -1,0 +1,25 @@
+name: assignment_runner
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [ opened, reopened, synchronize ]
+
+jobs:
+  Assignment_Runner:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install packages
+        run: .github/workflows/install_dependencies.sh
+      - name: Create Makefile
+        run: cmake -DCMAKE_BUILD_TYPE=Debug -DRUN_COV=true .
+      - name: Build code
+        run: make -j4
+      - name: Run unit tests
+        run: make function_tests # run all executables ending with "_test"
+      - name: Run memory tests
+        run: .github/workflows/memcheck.sh
