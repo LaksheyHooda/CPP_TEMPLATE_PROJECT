@@ -17,7 +17,7 @@ jobs:
       - name: Clone Repo
         run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - name: Install packages
-        run: chmod 777 .github/workflows/install_dependencies.sh && .github/workflows/install_dependencies.sh
+        run: bash .github/workflows/install_dependencies.sh
       - name: Create Makefile
         run: cmake -DCMAKE_BUILD_TYPE=Debug -DRUN_COV=true .
       - name: Build code
